@@ -7,7 +7,7 @@ class TestePlugin {
     return TestePluginPlatform.instance.getPlatformVersion();
   }
 
-  Future<Map<String, String>?> getLocationUpdates() {
+  Future<Map<Object?, Object?>?> getLocationUpdates() {
     return LocationPluginPlatform.instance.getLocation();
   }
 }

@@ -11,9 +11,9 @@ class LocationMethodChannel extends LocationPluginPlatform {
   final methodChannel = const MethodChannel('getLocationToHealth');
 
   @override
-  Future<Map<String, String>?> getLocation() async {
+  Future<Map<Object?, Object?>?> getLocation() async {
 
-    final version = await methodChannel.invokeMethod<Map<String, String>>('getLocation');
+    final version = await methodChannel.invokeMethod<Map<Object?, Object?>?>('getLocation');
     return version;
   }
 }

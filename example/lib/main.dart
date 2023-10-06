@@ -18,7 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _hearthRate = 'Unknown';
-  Map<String, String>? _location = {};
+  Map<Object?, Object?>? _location = {};
   final _testePlugin = TestePlugin();
 
   @override
@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String healthRate;
-    Map<String, String>? location;
+    Map<Object?, Object?>? location;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
 
@@ -75,12 +75,14 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Column(
-            children: [
-              Text('Heart Rate: $_hearthRate\n'),
-              Text(
-                  "Latitude: ${_location!["latitude"]} | Logitude: ${_location!["logitude"]}"),
-            ],
+          child: FittedBox(
+            child: Column(
+              children: [
+                Text('Heart Rate: $_hearthRate\n'),
+                Text(
+                    "Latitude: ${_location!["latitude"]} | Logitude: ${_location!["longitude"]}"),
+              ],
+            ),
           ),
         ),
       ),

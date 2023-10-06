@@ -24,7 +24,7 @@ abstract class LocationPluginPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<Map<String, String>?> getLocation() {
+  Future<Map<Object?, Object?>?> getLocation() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }
