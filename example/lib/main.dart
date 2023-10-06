@@ -17,7 +17,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _hearthRate = 'Unknown';
+  Map<String, String>? _location = {};
   final _testePlugin = TestePlugin();
 
   @override
@@ -28,23 +29,30 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    String healthRate;
+    Map<String, String>? location;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
 
-    var status = await Permission.sensors.status;
+    var statusSensors = await Permission.sensors.status;
+    var statusLocation = await Permission.location.status;
 
-    if(status.isDenied){
+    if (statusSensors.isDenied) {
       await Permission.sensors.request();
     }
 
-    while(true){
+    if (statusLocation.isDenied) {
+      await Permission.location.request();
+    }
 
+    while (true) {
       try {
-        platformVersion =
-            await _testePlugin.getPlatformVersion() ?? 'Unknown platform version';
+        healthRate = await _testePlugin.getPlatformVersion() ??
+            'Unknown platform version';
+        location = await _testePlugin.getLocationUpdates() ?? {};
       } on PlatformException {
-        platformVersion = 'Failed to get platform version.';
+        healthRate = 'Failed to get platform version.';
+        location = {};
       }
 
       // If the widget was removed from the tree while the asynchronous platform
@@ -53,7 +61,8 @@ class _MyAppState extends State<MyApp> {
       if (!mounted) return;
 
       setState(() {
-        _platformVersion = platformVersion;
+        _hearthRate = healthRate;
+        _location = location;
       });
     }
   }
@@ -66,7 +75,13 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Heart Rate: $_hearthRate\n'),
+              Text(
+                  "Latitude: ${_location!["latitude"]} | Logitude: ${_location!["logitude"]}"),
+            ],
+          ),
         ),
       ),
     );

@@ -9,7 +9,7 @@ class MockTestePluginPlatform
     implements TestePluginPlatform {
 
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<String?> getLocation() => Future.value('42');
 }
 
 void main() {

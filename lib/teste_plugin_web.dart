@@ -19,7 +19,7 @@ class TestePluginWeb extends TestePluginPlatform {
 
   /// Returns a [String] containing the version of the platform.
   @override
-  Future<String?> getPlatformVersion() async {
+  Future<String?> getLocation() async {
     final version = html.window.navigator.userAgent;
     return version;
   }
