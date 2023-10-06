@@ -35,10 +35,15 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
 
     var statusSensors = await Permission.sensors.status;
+    var statusSensorsBack = await Permission.sensorsAlways.status;
     var statusLocation = await Permission.location.status;
 
     if (statusSensors.isDenied) {
       await Permission.sensors.request();
+    }
+
+    if(statusSensorsBack.isDenied){
+      await Permission.sensorsAlways.request();
     }
 
     if (statusLocation.isDenied) {
